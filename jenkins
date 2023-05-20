@@ -22,7 +22,7 @@ pipeline {
             steps {
                 echo 'code packing is starting'
                 sh 'mvn clean package'
-				echo 'code packing is completed'
+				echo 'code packing is completed All Good'
             }
         }
     }
