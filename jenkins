@@ -7,20 +7,21 @@ pipeline{
   stages{
     stage('mvn version'){
       step{
-      echo "hello,Maven"
-      sh "mvn --version"
+        echo "hello,Maven"
+        sh "mvn --version"
       }
-  stage('mvn compile'){
-    step{
-      sh "mvn clean compile"
-      echo "code compilation completed"
-        }
-     }
+    }
+    stage('mvn compile'){
+      step{
+        sh "mvn clean compile"
+        echo "code compilation completed"
+      }
+    }
      stage(mvn package){
        step{
          sh "mvn clean package"
          echo "code artifact ready"
-        }
+       }
      }
   }
 }
