@@ -11,11 +11,11 @@ pipeline {
     }
 
     stages {
-        stage('Code Compilation') {
+        stage('mvn version') {
             steps {
                 echo 'code compilation is starting'
-                sh 'mvn clean compile'
-				echo 'code compilation is completed'
+                sh 'mvn --version'
+				echo 'Hi, MVN'
             }
        }
         stage('mvn compile'){
@@ -24,7 +24,7 @@ pipeline {
                 echo "code compilation completed"
             }
         }
-        stage(mvn package){
+        stage('mvn package'){
             step{
                 sh "mvn clean package"
                 echo "code artifact ready"
