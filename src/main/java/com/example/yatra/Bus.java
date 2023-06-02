@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class Bus {
     @GetMapping("/mybus")
     public String getData(){
-        return "No Bus Available bro, us another option";
+        return "No Bus Available bro";
     }
 }
