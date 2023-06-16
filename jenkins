@@ -57,14 +57,7 @@ pipeline {
            steps {
               script {
                  sh """
-                withCredentials([
-                    [
-
-                        credentialsId: 'ecr-credential',
-                        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-                    ]
-                ]) {
+                 withCredentials([string(credentialsId: 'dockerhubCred', variable: 'dockerhubCred')]){
                  echo "List the docker images present in local"
                  docker images
                  echo "Tagging the Docker Image: In Progress"
