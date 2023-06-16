@@ -57,12 +57,14 @@ pipeline {
            steps {
               script {
                  sh """
-                 withCredentials([[
-                                         $class: 'AmazonWebServicesCredentialsBinding',
-                                         credentialsId: 'ecr-credential',
-                                         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-                                     ]]){
+                withCredentials([
+                    [
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: 'ecr-credential',
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                    ]
+                ]) {
                  echo "List the docker images present in local"
                  docker images
                  echo "Tagging the Docker Image: In Progress"
