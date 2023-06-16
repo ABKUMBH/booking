@@ -56,17 +56,16 @@ pipeline {
 
         stage('Docker Image Push to Amazon ECR') {
             steps {
-                withAWS(region: 'us-east-1', credentials: 'ecr-credentials') {
-                    script {
-                        echo "List the docker images present in local"
-                        sh 'docker images'
-                        echo "Tagging the Docker Image: In Progress"
-                        sh 'docker tag abkumbh/yatra:latest 804475515851.dkr.ecr.us-east-1.amazonaws.com/yatra:latest'
-                        echo "Tagging the Docker Image: Completed"
-                        echo "Pushing Docker Image to ECR: In Progress"
-                        sh 'docker push 804475515851.dkr.ecr.us-east-1.amazonaws.com/yatra:latest'
-                        echo "Pushing Docker Image to ECR: Completed"
-                    }
+                withCredentials([string(credentialsId: 'ecr-credentials', variable: 'ecr-credentials')]) {
+                    echo "List the docker images present in local"
+                    sh 'docker images'
+                    echo "Tagging the Docker Image: In Progress"
+                    sh 'docker tag abkumbh/yatra:latest 804475515851.dkr.ecr.us-east-1.amazonaws.com/yatra:latest'
+                    echo "Tagging the Docker Image: Completed"
+                    echo "Pushing Docker Image to ECR: In Progress"
+                    sh 'docker login -u AWS -p ${ecrCred} 804475515851.dkr.ecr.us-east-1.amazonaws.com'
+                    sh 'docker push 804475515851.dkr.ecr.us-east-1.amazonaws.com/yatra:latest'
+                    echo "Pushing Docker Image to ECR: Completed"
                 }
             }
         }
