@@ -56,7 +56,7 @@ pipeline {
 
         stage('Docker Image Push to Amazon ECR') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY', credentialsId: 'ecr-credentials']]) {
+                withDockerRegistry([credentialsId:'ecr:us-east-1:ecr-credentials', url:"https://804475515851.dkr.ecr.us-east-1.amazonaws.com"]) {
                     echo "List the docker images present in local"
                     sh 'docker images'
                     echo "Tagging the Docker Image: In Progress"
