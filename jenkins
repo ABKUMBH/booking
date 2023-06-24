@@ -68,5 +68,21 @@ pipeline {
                 }
             }
         }
+        stage('Upload docker Image to nexus') {
+                    steps {
+                        Script{
+                        withDockerRegistry([usernamePassword(credentialsId: 'nexuscred',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        sh 'docker login http://44.202.54.4:8085/repository/yatra -u admin -p ${PASSWORD}'
+                        echo "Push docker image to nexus : In Progress"
+                        sh 'docker tag yatra 44.202.54.4:8085/yatra:latest'
+                        echo "Tagging the Docker Image: Completed"
+                        echo "Pushing Docker Image to 44.202.54.4:8085/yatra"
+                        sh 'docker push 44.202.54.4:8085/yatra'
+                        echo "Pushing Docker Image to 44.202.54.4:8085/yatra Completed"
+                        }
+
+                        }
+                    }
+                }
     }
 }
