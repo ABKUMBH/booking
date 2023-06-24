@@ -71,8 +71,8 @@ pipeline {
         stage('Upload docker Image to nexus') {
            steps {
                    script{
-                        docker.withRegistry('http://44.202.54.4:8085', 'nexuscred') {
-                        sh 'docker login -u admin -p '${PASSWORD}''
+                        withDockerRegistry([credentialsId: 'nexuscred', url: 'http://44.202.54.4:8085']) {
+                        sh "echo \${PASSWORD} | docker login -u admin --password-stdin http://44.202.54.4:8085"
                         echo "Push docker image to nexus : In Progress"
                         sh 'docker tag yatra 44.202.54.4:8085/yatra:latest'
                         echo "Tagging the Docker Image: Completed"
