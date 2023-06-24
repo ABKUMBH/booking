@@ -72,7 +72,7 @@ pipeline {
            steps {
                    script{
                         docker.withRegistry('http://44.202.54.4:8085', 'nexuscred') {
-                        sh 'docker login -u admin -p ${PASSWORD}'
+                        sh 'docker login -u admin -p '${PASSWORD}''
                         echo "Push docker image to nexus : In Progress"
                         sh 'docker tag yatra 44.202.54.4:8085/yatra:latest'
                         echo "Tagging the Docker Image: Completed"
